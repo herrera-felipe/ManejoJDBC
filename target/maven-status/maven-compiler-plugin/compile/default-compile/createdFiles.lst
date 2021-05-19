@@ -1,0 +1,4 @@
+domain/Persona.class
+datos/Conexion.class
+test/ManejoPersonas.class
+datos/PersonaJDBC.class
