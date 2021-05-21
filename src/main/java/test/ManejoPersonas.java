@@ -5,7 +5,7 @@ import datos.PersonaJDBC;
 import domain.Persona;
 import java.sql.*;
 
-public class ManejoPesonas {
+public class ManejoPersonas {
     
     public static void main(String[] args) {
         
