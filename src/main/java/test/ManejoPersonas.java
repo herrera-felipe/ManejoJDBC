@@ -29,7 +29,7 @@ public class ManejoPersonas {
             cambioPersona.setId_persona(2);
             cambioPersona.setNombre("Andres Felipe");
             cambioPersona.setApellido("Herrera");
-            cambioPersona.setApellido("fherrera@email.com");
+            cambioPersona.setEmail("fherrera@email.com");
             cambioPersona.setTelefono("12347665");
             
             personaJDBC.update(cambioPersona); // Actualiza obj en la BD
@@ -37,7 +37,7 @@ public class ManejoPersonas {
             // Insert
             Persona nuevaPersona = new Persona();
             nuevaPersona.setNombre("Carlos");
-            nuevaPersona.setApellido("Gomez111111111111111111111111111111111111111111111"); // Prueba error para acceder al rollback
+            nuevaPersona.setApellido("Gomez"); 
             
             personaJDBC.insert(nuevaPersona);
             
