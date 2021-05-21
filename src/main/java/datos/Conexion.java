@@ -8,20 +8,16 @@ import java.sql.*;
 
 /**
  *
- * @author faunus
+ * @author felipe herrera
  */
 public class Conexion {
 
-    // Variables para realizar la conexion a la base de datos.
-    private static final String JDBC_URL = "jdbc:mysql://localhost/test?useSSL=false&serverTimezone=UTC"; // contiene la direccion de la base de datos.
-    private static final String JDBC_USER = "root";// contiene el usuario para conectarnos a la base de datos.
-    private static final String JDBC_PASS = "admin"; // contiene el password para conectarnos a la base de datos.
+    
+    private static final String JDBC_URL = "jdbc:mysql://localhost/test?useSSL=false&serverTimezone=UTC"; 
+    private static final String JDBC_USER = "root";
+    private static final String JDBC_PASS = "admin"; 
 
-    /*
-     * Metodo encargado de realizar la conexion a la BD.
-     * Puede tener cualquier nombre, en este caso lo llamamos igual que el metodo de DriverManager.
-     * Este metodo puede arrojar una exepcion SQL por lo que se especificara con un "throws".
-     */
+    
     public static Connection getConnection() throws SQLException {
 
         return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS); // Se crea la conexion a la base de datos.
