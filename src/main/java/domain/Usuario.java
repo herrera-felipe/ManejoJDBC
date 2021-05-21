@@ -7,7 +7,7 @@ package domain;
 
 /**
  *
- * @author faunus
+ * @author Felipe Herrera
  */
 public class Usuario {
     
@@ -18,6 +18,18 @@ public class Usuario {
     public Usuario() {
         
     }
+
+    public Usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+    
+
+    public Usuario(int id_usuario, String usuario, String password) {
+        this.id_usuario = id_usuario;
+        this.usuario = usuario;
+        this.password = password;
+    }
+    
 
     public Usuario(String usuario, String password) {
         this.usuario = usuario;

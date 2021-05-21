@@ -19,9 +19,16 @@ public class ManejoUsuarios {
         }
         
         // Insertar nuevo usuario
-        Usuario user = new Usuario("carlos ", "1234");
-        usuarioJDBC.insert(user);
+//        Usuario user = new Usuario("carlos ", "1234");
+//        usuarioJDBC.insert(user);
         
+        
+        // Modificar usuario existente
+//        Usuario user2 = new Usuario(4, "carlos", "456");
+//        usuarioJDBC.update(user2);
+
+        // Eliminar usuario
+        usuarioJDBC.delete(new Usuario(4));
     }
 
 }
