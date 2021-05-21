@@ -30,7 +30,7 @@ public class PersonaJDBC {
      * Metodo que ejecutara la sentencia SQL_SELECT.
      * Este metodo listara todos los registros de la tabla personas de la BD.
      */
-    public List<Persona> select() {
+    public List<Persona> select() throws SQLException {
         // instanciamos los objetos Connection, PreparedStatement, ResultSet y Persona. Que usaremos para la consulta a la BD. Y la Lista de tipo Persona
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -64,9 +64,7 @@ public class PersonaJDBC {
 
                 listaPersonas.add(persona); // Agregamos el "Obj. persona" a la lista "personas".
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        } 
+        }  
         finally {
             Conexion.close(rs); // Cerramos ResultSet  "ejecucion del Query".
             Conexion.close(stmt); // Cerramos la sentencia.
@@ -83,7 +81,7 @@ public class PersonaJDBC {
      * Este metodo sera encargado de "insertar" valores a la tabla personas.
      * es decir inserta personas a la BD.
      */
-    public int insert(Persona persona) {
+    public int insert(Persona persona) throws SQLException {
         // instanciamos los objetos Connection, PreparedStatement.
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -106,9 +104,6 @@ public class PersonaJDBC {
 
             System.out.println("Registros afectados: " + registrosAfectados);
         } 
-        catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        } 
         finally {
             Conexion.close(stmt); 
             
@@ -125,7 +120,7 @@ public class PersonaJDBC {
      * por lo tanto tendra que recibir un obt de tipo Persona, para poder acceder a este valor
      * y asi realizar la busqueda del registro y modificarlo.
      */
-    public int update(Persona persona) {
+    public int update(Persona persona) throws SQLException {
         // instanciamos los objetos Connection, PreparedStatement.
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -151,9 +146,7 @@ public class PersonaJDBC {
             registrosAfectados = stmt.executeUpdate();
             System.out.println("Registros actualizados: " + registrosAfectados);
             
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        }
+        } 
         finally {
             Conexion.close(stmt); // cerramos la sentencia
             
@@ -170,7 +163,7 @@ public class PersonaJDBC {
      * Recibira por parametro un Obj de tipo persona, aunque solo nos intereza el id_persona
      * para eliminar el registro.
      */
-    public int delete(Persona persona) {
+    public int delete(Persona persona) throws SQLException {
         // Definimos el obj de conexion y el PreparedStatement
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -187,9 +180,6 @@ public class PersonaJDBC {
             registrosAfectados = stmt.executeUpdate(); // Ejecutamos la sentencia.
             System.out.println("Registros eliminados: " + registrosAfectados);
         } 
-        catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        }
         finally {
             // Cerramos los Objetos.
             Conexion.close(stmt);
