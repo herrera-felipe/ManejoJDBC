@@ -9,12 +9,23 @@ import domain.Persona;
 
 public class PersonaJDBC {
 
+    private Connection conexionTransaccional;
+    
     // Definimos las sentencias SQL de SELECT, INSERT, UPDATE y DELETE.
     private static final String SQL_SELECT = "SELECT id_persona, nombre, apellido, email, telefono FROM persona";
     private static final String SQL_INSERT = "INSERT INTO persona(nombre, apellido, email, telefono) VALUES(?, ?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE persona SET nombre = ?, apellido = ?, email = ?, telefono = ? WHERE  id_persona = ?";
     private static final String SQL_DELETE = "DELETE FROM persona WHERE id_persona = ?";
 
+    
+    public PersonaJDBC() {
+        
+    }
+    
+    public PersonaJDBC(Connection conexicionTransaccional) {
+        this.conexionTransaccional = conexicionTransaccional;
+    }
+    
     /*
      * Metodo que ejecutara la sentencia SQL_SELECT.
      * Este metodo listara todos los registros de la tabla personas de la BD.
@@ -28,7 +39,7 @@ public class PersonaJDBC {
         List<Persona> listaPersonas = new ArrayList<Persona>();
 
         try {
-            conn = Conexion.getConnection(); //obtenemos la conexion a la BD
+            conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection(); //obtenemos la conexion a la BD
             stmt = conn.prepareStatement(SQL_SELECT); //inicializamos el obj de tipo PreparedStatement y especificamos la sentencia sql a usar.
             // ejecutamos el Query asignando el stmt a rs
             rs = stmt.executeQuery();
@@ -55,11 +66,14 @@ public class PersonaJDBC {
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
-        } finally {
-            // Cerramos nuestros objetos
+        } 
+        finally {
             Conexion.close(rs); // Cerramos ResultSet  "ejecucion del Query".
             Conexion.close(stmt); // Cerramos la sentencia.
-            Conexion.close(conn); // Cerramos la conexion.
+            
+            if ( this.conexionTransaccional == null ) {
+                Conexion.close(conn); // Cerramos la conexion.
+            }    
         }
         // Return el listado de personas de la tabla.
         return listaPersonas;
@@ -77,7 +91,7 @@ public class PersonaJDBC {
         int registrosAfectados = 0;
 
         try {
-            conn = Conexion.getConnection(); //obtenemos la conexion a la BD
+            conn = conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT); //inicializamos el obj de tipo PreparedStatement y especificamos la sentencia sql a usar.
 
             // DEFINIMOS LOS VALORES QUE REQUIERE LA SENTENCIA INSERT
@@ -94,10 +108,13 @@ public class PersonaJDBC {
         } 
         catch (SQLException ex) {
             ex.printStackTrace(System.out);
-        } finally {
-            // Cerramos nuestros objetos
-            Conexion.close(stmt); // Cerramos la sentencia.
-            Conexion.close(conn); // Cerramos la conexion.
+        } 
+        finally {
+            Conexion.close(stmt); 
+            
+            if ( this.conexionTransaccional == null ) {
+                Conexion.close(conn); // Cerramos la conexion.
+            }    
         }
         // Regresamos el numero de registros afectados.
         return registrosAfectados;
@@ -116,8 +133,8 @@ public class PersonaJDBC {
         int registrosAfectados = 0;
         
         try {
-            conn = Conexion.getConnection(); //obtenemos la conexion a la BD
-            // Mensaje en consola
+            conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection();
+
             System.out.println("Ejecuntando query: " + SQL_UPDATE);
             
             stmt = conn.prepareStatement(SQL_UPDATE); //inicializamos el obj de tipo PreparedStatement y especificamos la sentencia sql a usar.
@@ -139,7 +156,10 @@ public class PersonaJDBC {
         }
         finally {
             Conexion.close(stmt); // cerramos la sentencia
-            Conexion.close(conn); // cerramos la conexion.
+            
+            if ( this.conexionTransaccional == null ) {
+                Conexion.close(conn); // Cerramos la conexion.
+            }    
         }
         
         return registrosAfectados;
@@ -157,7 +177,7 @@ public class PersonaJDBC {
         int registrosAfectados = 0;
         
         try {
-            conn = Conexion.getConnection(); // Establecemos conexion con la BD
+            conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection(); // Establecemos conexion con la BD
             
             System.out.println("Ejecutando query: " + SQL_DELETE); // Msj a consola
             
@@ -173,7 +193,10 @@ public class PersonaJDBC {
         finally {
             // Cerramos los Objetos.
             Conexion.close(stmt);
-            Conexion.close(conn);
+            
+            if ( this.conexionTransaccional == null ) {
+                Conexion.close(conn); // Cerramos la conexion.
+            }    
         }
         
         return registrosAfectados;
