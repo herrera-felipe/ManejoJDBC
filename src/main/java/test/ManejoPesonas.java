@@ -37,7 +37,7 @@ public class ManejoPesonas {
             // Insert
             Persona nuevaPersona = new Persona();
             nuevaPersona.setNombre("Carlos");
-            nuevaPersona.setApellido("Gomez");
+            nuevaPersona.setApellido("Gomez111111111111111111111111111111111111111111111"); // Prueba error para acceder al rollback
             
             personaJDBC.insert(nuevaPersona);
             
