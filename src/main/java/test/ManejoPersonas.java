@@ -43,6 +43,8 @@ public class ManejoPersonas {
             
             // Commit de la Transaccion
             conexion.commit();
+            
+            System.out.println("Commit Realizado.");
         } 
         catch (SQLException ex) {
             ex.printStackTrace(System.out);
