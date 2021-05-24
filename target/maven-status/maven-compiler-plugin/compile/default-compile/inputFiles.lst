@@ -1,4 +1,7 @@
+/home/faunus/cursos/JavaJDBC/ManejoJDBC/src/main/java/test/ManejoUsuarios.java
 /home/faunus/cursos/JavaJDBC/ManejoJDBC/src/main/java/domain/Persona.java
+/home/faunus/cursos/JavaJDBC/ManejoJDBC/src/main/java/domain/Usuario.java
+/home/faunus/cursos/JavaJDBC/ManejoJDBC/src/main/java/datos/UsuarioJDBC.java
 /home/faunus/cursos/JavaJDBC/ManejoJDBC/src/main/java/test/ManejoPersonas.java
 /home/faunus/cursos/JavaJDBC/ManejoJDBC/src/main/java/datos/Conexion.java
 /home/faunus/cursos/JavaJDBC/ManejoJDBC/src/main/java/datos/PersonaJDBC.java

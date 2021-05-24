@@ -89,7 +89,7 @@ public class PersonaJDBC {
         int registrosAfectados = 0;
 
         try {
-            conn = conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection();
+            conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT); //inicializamos el obj de tipo PreparedStatement y especificamos la sentencia sql a usar.
 
             // DEFINIMOS LOS VALORES QUE REQUIERE LA SENTENCIA INSERT
