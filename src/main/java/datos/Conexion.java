@@ -6,6 +6,8 @@ package datos;
 
 import java.sql.*;
 
+import javax.sql.DataSource;
+
 /**
  *
  * @author felipe herrera
@@ -17,9 +19,12 @@ public class Conexion {
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASS = "admin"; 
 
+    // Pool de conexion 
+    public static DataSource getDataSource() {
+    	
+    }
     
     public static Connection getConnection() throws SQLException {
-
         return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS); // Se crea la conexion a la base de datos.
     }
 
