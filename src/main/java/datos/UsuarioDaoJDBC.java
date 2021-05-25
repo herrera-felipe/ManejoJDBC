@@ -3,11 +3,11 @@
  */
 package datos;
 
-import domain.Usuario;
+import domain.UsuarioDTO;
 import java.sql.*;
 import java.util.*;
 
-public class UsuarioJDBC {
+public class UsuarioDaoJDBC {
 
     private Connection conexionTransaccional;
 
@@ -17,25 +17,25 @@ public class UsuarioJDBC {
     private static final String SQL_UPDATE = "UPDATE usuario SET usuario = ?, password = ? WHERE  id_usuario = ?";
     private static final String SQL_DELETE = "DELETE FROM usuario WHERE id_usuario = ?";
 
-    public UsuarioJDBC() {
+    public UsuarioDaoJDBC() {
 
     }
 
-    public UsuarioJDBC(Connection conexionTransaccional) {
+    public UsuarioDaoJDBC(Connection conexionTransaccional) {
         this.conexionTransaccional = conexionTransaccional;
     }
 
     /*
      * Metodo SELECT, ejecutara la sentencia SQL y listara los registros de la tabla
      */
-    public List<Usuario> select() throws SQLException {
+    public List<UsuarioDTO> select() throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        Usuario obj_usuario = null;
-        List<Usuario> listaUsuarios = new ArrayList<Usuario>(); // Instanciamos la Lista que almacenara los registros
+        UsuarioDTO obj_usuario = null;
+        List<UsuarioDTO> listaUsuarios = new ArrayList<UsuarioDTO>(); // Instanciamos la Lista que almacenara los registros
 
         try {
             conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection();  // Establecer Conexión a la Base de Datos.
@@ -51,7 +51,7 @@ public class UsuarioJDBC {
                 String password = rs.getString("password");
 
                 // Instanciamos un Obj de tipo Usuario para asignar los valores obtenidos
-                obj_usuario = new Usuario();
+                obj_usuario = new UsuarioDTO();
 
                 obj_usuario.setId_usuario(id_usuario);
                 obj_usuario.setUsuario(usuario);
@@ -77,7 +77,7 @@ public class UsuarioJDBC {
      * Metodo INSERT, ejecutara la sentencia INSERT para agregar valores a la tabla Usuarios.
      * Por parametro recibira un Obj del tipo Usuario
      */
-    public int insert(Usuario usuarioNuevo) throws SQLException {
+    public int insert(UsuarioDTO usuarioNuevo) throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -109,7 +109,7 @@ public class UsuarioJDBC {
     /*
      * Metodo update, modificara los registros en la BD del id_usuario asociado
      */
-    public int update(Usuario usuario) throws SQLException {
+    public int update(UsuarioDTO usuario) throws SQLException {
         // instanciamos Connection, PreparedStatement
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -147,7 +147,7 @@ public class UsuarioJDBC {
     /*
      * Metodo delete: Elimina registros de usuario en la BD mediante el Id_usuario
      */
-    public int delete(Usuario usuario) throws SQLException {
+    public int delete(UsuarioDTO usuario) throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
