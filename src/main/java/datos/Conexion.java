@@ -8,6 +8,8 @@ import java.sql.*;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp2.BasicDataSource;
+
 /**
  *
  * @author felipe herrera
@@ -19,13 +21,22 @@ public class Conexion {
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASS = "admin"; 
 
-    // Pool de conexion 
+    // Pool de conexiones 
     public static DataSource getDataSource() {
+    	BasicDataSource datasource = new BasicDataSource();
     	
+    	// Configuracion Pool de conexiones
+    	datasource.setUrl(JDBC_URL);
+    	datasource.setUsername(JDBC_USER);
+    	datasource.setPassword(JDBC_PASS);
+    	// Tamaño inicial del pool de conexiones
+    	datasource.setInitialSize(5); // 5 conexiones por default
+    	
+    	return datasource;
     }
     
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS); // Se crea la conexion a la base de datos.
+        return getDataSource().getConnection(); // Establece la conexion a la base de datos.
     }
 
     /*
