@@ -1,9 +1,11 @@
 package test;
 
 import datos.Conexion;
-import datos.UsuarioJDBC;
-import domain.Usuario;
+import datos.UsuarioDao;
+import datos.UsuarioDaoJDBC;
+import domain.UsuarioDTO;
 import java.sql.*;
+import java.util.List;
 
 public class ManejoUsuarios {
 
@@ -19,27 +21,31 @@ public class ManejoUsuarios {
                 conexion.setAutoCommit(false);
             }
             
-            // Establecer conexion
-            UsuarioJDBC usuarioJDBC = new UsuarioJDBC(conexion);
+            UsuarioDao usuarioDao = new UsuarioDaoJDBC(conexion);
             
-            // Sentencias SQL
+            // SELECT
+            List<UsuarioDTO> listaUsuarios = usuarioDao.select();
             
-            // UPDATE
-            Usuario cambioUsuario = new Usuario();
-            
-            cambioUsuario.setId_usuario(3);
-            cambioUsuario.setUsuario("EdwinHerrera");
-            cambioUsuario.setPassword("111abc");
-            
-            usuarioJDBC.update(cambioUsuario); 
+            for (UsuarioDTO usuario : listaUsuarios) {
+            	System.out.println("Usuario DTO:" + usuario);
+            }
             
             // INSERT
-            Usuario nuevoUsuario = new Usuario();
+            UsuarioDTO nuevoUser = new UsuarioDTO();
             
-            nuevoUsuario.setUsuario("Estela");
-            nuevoUsuario.setPassword("123abc");
+            nuevoUser.setUsuario("Angelina");
+            nuevoUser.setPassword("1234");
             
-            usuarioJDBC.insert(nuevoUsuario);
+            usuarioDao.insert(nuevoUser);
+            
+            // UPDATE
+            UsuarioDTO modificarUser = new UsuarioDTO();
+            
+            modificarUser.setId_usuario(3);
+            modificarUser.setUsuario("Alejandro");
+            modificarUser.setPassword("1234");
+            
+            usuarioDao.update(modificarUser);
             
             // Commit de la transaccion
             conexion.commit();
