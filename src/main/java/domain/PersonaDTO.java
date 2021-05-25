@@ -4,7 +4,7 @@
 */
 package domain;
 
-public class Persona {
+public class PersonaDTO {
 
     private int id_persona;
     private String nombre;
@@ -12,7 +12,7 @@ public class Persona {
     private String email;
     private String telefono;
 
-    public Persona() {
+    public PersonaDTO() {
         
     }
     

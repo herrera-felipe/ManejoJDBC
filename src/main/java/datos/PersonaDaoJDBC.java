@@ -5,9 +5,9 @@ package datos;
 
 import java.sql.*;
 import java.util.*;
-import domain.Persona;
+import domain.PersonaDTO;
 
-public class PersonaJDBC {
+public class PersonaDaoJDBC implements PersonaDao {
 
     private Connection conexionTransaccional;
     
@@ -18,11 +18,11 @@ public class PersonaJDBC {
     private static final String SQL_DELETE = "DELETE FROM persona WHERE id_persona = ?";
 
     
-    public PersonaJDBC() {
+    public PersonaDaoJDBC() {
         
     }
     
-    public PersonaJDBC(Connection conexicionTransaccional) {
+    public PersonaDaoJDBC(Connection conexicionTransaccional) {
         this.conexionTransaccional = conexicionTransaccional;
     }
     
@@ -30,13 +30,13 @@ public class PersonaJDBC {
      * Metodo que ejecutara la sentencia SQL_SELECT.
      * Este metodo listara todos los registros de la tabla personas de la BD.
      */
-    public List<Persona> select() throws SQLException {
+    public List<PersonaDTO> select() throws SQLException {
         // instanciamos los objetos Connection, PreparedStatement, ResultSet y Persona. Que usaremos para la consulta a la BD. Y la Lista de tipo Persona
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Persona persona = null;
-        List<Persona> listaPersonas = new ArrayList<Persona>();
+        PersonaDTO persona = null;
+        List<PersonaDTO> listaPersonas = new ArrayList<PersonaDTO>();
 
         try {
             conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection(); //obtenemos la conexion a la BD
@@ -54,7 +54,7 @@ public class PersonaJDBC {
                 String telefono = rs.getString("telefono");
 
                 // Creamos el Obj. de tipo Persona con los valores obtenidos.
-                persona = new Persona();
+                persona = new PersonaDTO();
 
                 persona.setId_persona(id_persona);
                 persona.setNombre(nombre);
@@ -81,7 +81,7 @@ public class PersonaJDBC {
      * Este metodo sera encargado de "insertar" valores a la tabla personas.
      * es decir inserta personas a la BD.
      */
-    public int insert(Persona persona) throws SQLException {
+    public int insert(PersonaDTO persona) throws SQLException {
         // instanciamos los objetos Connection, PreparedStatement.
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -120,7 +120,7 @@ public class PersonaJDBC {
      * por lo tanto tendra que recibir un obt de tipo Persona, para poder acceder a este valor
      * y asi realizar la busqueda del registro y modificarlo.
      */
-    public int update(Persona persona) throws SQLException {
+    public int update(PersonaDTO persona) throws SQLException {
         // instanciamos los objetos Connection, PreparedStatement.
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -163,7 +163,7 @@ public class PersonaJDBC {
      * Recibira por parametro un Obj de tipo persona, aunque solo nos intereza el id_persona
      * para eliminar el registro.
      */
-    public int delete(Persona persona) throws SQLException {
+    public int delete(PersonaDTO persona) throws SQLException {
         // Definimos el obj de conexion y el PreparedStatement
         Connection conn = null;
         PreparedStatement stmt = null;
